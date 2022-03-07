@@ -9,6 +9,8 @@ import com.davahamka.kinder.presentation.account.AccountScreen
 import com.davahamka.kinder.presentation.auth.InformationScreen
 import com.davahamka.kinder.presentation.auth.login.LoginScreen
 import com.davahamka.kinder.presentation.auth.register.RegisterScreen
+import com.davahamka.kinder.presentation.auth.user_preferred.UserPreferredScreen
+import com.davahamka.kinder.presentation.auth.user_preferred.UserRestrictionScreen
 import com.davahamka.kinder.presentation.donate.CameraScreen
 import com.davahamka.kinder.presentation.donate.DonateScreen
 import com.davahamka.kinder.presentation.home.HomeScreen
@@ -29,6 +31,14 @@ fun Navigation() {
 
         composable(route = Screen.RegisterScreen.route) {
             RegisterScreen(navController = navController)
+        }
+
+        composable(route = Screen.UserPreferredScreen.route) {
+            UserPreferredScreen(navController = navController)
+        }
+
+        composable(route = Screen.UserRestrictionScreen.route) {
+            UserRestrictionScreen(navController = navController)
         }
         
         composable(route = Screen.InformationScreen.route) {

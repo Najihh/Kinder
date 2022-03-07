@@ -2,6 +2,7 @@ package com.davahamka.kinder.presentation.auth.register
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -160,7 +161,7 @@ fun RegisterScreen(
 
 
             Row(
-                modifier = Modifier.padding(top = 16.dp, bottom = 24.dp),
+                modifier = Modifier.padding(top = 16.dp, bottom = 24.dp).border(width = 2.dp, color = Grey2).clickable {  },
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Checkbox(
@@ -179,7 +180,7 @@ fun RegisterScreen(
 
             AuthenticationButton(
                 text = "Register",
-                onClick = { viewModel.onEvent(RegisterEvent.OnSubmitRegister) },
+                onClick = { navController.navigate(Screen.UserPreferredScreen.route) },
                 isLoading = viewModel.state.value.isLoading
             )
 

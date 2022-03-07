@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.ViewGroup
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
+import androidx.camera.core.UseCase
 import androidx.camera.view.PreviewView
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -16,10 +17,9 @@ import kotlinx.coroutines.launch
 fun CameraPreview(
     modifier: Modifier = Modifier,
     scaleType: PreviewView.ScaleType = PreviewView.ScaleType.FILL_CENTER,
-    cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+    cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA,
+    onUseCase: (UseCase) -> Unit = { }
 ) {
-    val coroutineScope = rememberCoroutineScope()
-    val lifecycleOwner = LocalLifecycleOwner.current
     AndroidView(
         modifier = modifier,
         factory = { context ->
@@ -31,24 +31,13 @@ fun CameraPreview(
                 )
             }
 
-            val previewUseCase = Preview.Builder()
+            onUseCase(Preview.Builder()
                 .build()
                 .also {
                     it.setSurfaceProvider(previewView.surfaceProvider)
                 }
+            )
 
-            coroutineScope.launch {
-                val cameraProvider = context.getCameraProvider()
-                try {
-                    // Must unbind the use-cases before rebinding them.
-                    cameraProvider.unbindAll()
-                    cameraProvider.bindToLifecycle(
-                        lifecycleOwner, cameraSelector, previewUseCase
-                    )
-                } catch (ex: Exception) {
-                    Log.e("CameraPreview", "Use case binding failed", ex)
-                }
-            }
 
             previewView
         }
