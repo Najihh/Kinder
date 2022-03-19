@@ -53,16 +53,16 @@ fun InformationScreen(navController: NavController?) {
         modifier = Modifier
             .fillMaxSize()
             .padding(
-                top = 64.dp,
+                top = 32.dp,
                 start = 16.dp,
                 end = 16.dp
             ),
-        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         item {
             Image(
                 painter = painterResource(id = R.drawable.logo_kinder_primary),
-                contentDescription = "logo kinder"
+                contentDescription = "logo kinder",
+                modifier = Modifier.width(84.dp)
             )
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -79,25 +79,32 @@ fun InformationScreen(navController: NavController?) {
                )
             }
 
-            HorizontalPagerIndicator(
-                pagerState = pagerState,
-                modifier = Modifier
-                    .padding(16.dp),
-                activeColor = PrimaryColor,
-                inactiveColor = Color(0xFFD3D0D4),
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                HorizontalPagerIndicator(
+                    pagerState = pagerState,
+                    modifier = Modifier
+                        .padding(16.dp),
+                    activeColor = PrimaryColor,
+                    inactiveColor = Color(0xFFD3D0D4),
+                    )
+            }
 
-            )
 
 
             Spacer(modifier = Modifier.height(14.dp))
             AuthenticationButton(
                 text = "Masuk" ,
+
                 onClick = {
                           navController?.navigate(Screen.LoginScreen.route)
                 },
                 )
             Row(
-                modifier = Modifier.padding(top = 32.dp)
+                modifier = Modifier.padding(top = 32.dp).fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
             ) {
                 Text(text = "Belum memiliki akun? Silahkan ")
                 Text(

@@ -35,7 +35,7 @@ fun BottomNavigationBar(navController: NavController){
         items.forEach { item ->
             BottomNavigationItem(
                 icon = {
-                    if (currentRoute === item.route) Icon(imageVector =  item.iconSelected, contentDescription = item.title ) else Icon(imageVector =  item.icon, contentDescription = item.title )
+                    if (currentRoute === item.route) Icon(painter = painterResource(id = item.iconSelected), contentDescription = item.title ) else Icon(painter =  painterResource(id = item.icon), contentDescription = item.title)
                 },
                 label = { Text(text = item.title) },
                 onClick = {

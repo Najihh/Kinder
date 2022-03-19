@@ -6,15 +6,24 @@ import android.net.Uri
 import android.provider.Settings
 import android.util.Log
 import androidx.camera.core.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
+import com.davahamka.kinder.presentation.ui.component.TopBarDescription
+import com.davahamka.kinder.presentation.ui.theme.Green3
+import com.davahamka.kinder.presentation.ui.theme.PrimaryColor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -48,50 +57,69 @@ fun CameraCapture(
             }
         }
     ) {
-        Box(modifier = modifier) {
-            val lifecycleOwner = LocalLifecycleOwner.current
-            val coroutineScope = rememberCoroutineScope()
-            var previewUseCase by remember { mutableStateOf<UseCase>(Preview.Builder().build()) }
-            val imageCaptureUseCase by remember {
-                mutableStateOf(
-                    ImageCapture.Builder()
-                        .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
-                        .build()
-                )
-            }
-            Box {
-                CameraPreview(
-                    modifier = Modifier.fillMaxSize(),
-                    onUseCase = {
-                        previewUseCase = it
+       
+        Scaffold(
+            topBar = { TopBarDescription(title = "Check your food") }
+        ) {
+            Box(modifier = modifier) {
+                val lifecycleOwner = LocalLifecycleOwner.current
+                val coroutineScope = rememberCoroutineScope()
+                var previewUseCase by remember { mutableStateOf<UseCase>(Preview.Builder().build()) }
+                val imageCaptureUseCase by remember {
+                    mutableStateOf(
+                        ImageCapture.Builder()
+                            .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
+                            .build()
+                    )
+                }
+                Box {
+                    CameraPreview(
+                        modifier = Modifier.fillMaxSize(),
+                        onUseCase = {
+                            previewUseCase = it
+                        }
+                    )
+
+                    Box(
+                        modifier = Modifier.border(4.dp, color = PrimaryColor).width(240.dp).height(240.dp).align(
+                            Alignment.Center)
+                    ) {
+
                     }
-                )
-                Button(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .padding(16.dp)
-                        .align(Alignment.BottomCenter),
-                    onClick = {
-                        coroutineScope.launch {
-                            imageCaptureUseCase.takePicture(context.executor).let {
-                                onImageFile(it)
+                    Button(
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = PrimaryColor,
+                            contentColor = Color.White
+                        ),
+                        shape = RoundedCornerShape(24.dp),
+                        modifier = Modifier
+                            .width(300.dp)
+                            .padding(32.dp)
+                            .align(Alignment.BottomCenter)
+                        ,
+                        contentPadding = PaddingValues(vertical = 12.dp),
+                        onClick = {
+                            coroutineScope.launch {
+                                imageCaptureUseCase.takePicture(context.executor).let {
+                                    onImageFile(it)
+                                }
                             }
                         }
+                    ) {
+                        Text("Lanjut")
                     }
-                ) {
-                    Text("Click!")
                 }
-            }
-            LaunchedEffect(previewUseCase) {
-                val cameraProvider = context.getCameraProvider()
-                try {
-                    // Must unbind the use-cases before rebinding them.
-                    cameraProvider.unbindAll()
-                    cameraProvider.bindToLifecycle(
-                        lifecycleOwner, cameraSelector, previewUseCase, imageCaptureUseCase
-                    )
-                } catch (ex: Exception) {
-                    Log.e("CameraCapture", "Failed to bind camera use cases", ex)
+                LaunchedEffect(previewUseCase) {
+                    val cameraProvider = context.getCameraProvider()
+                    try {
+                        // Must unbind the use-cases before rebinding them.
+                        cameraProvider.unbindAll()
+                        cameraProvider.bindToLifecycle(
+                            lifecycleOwner, cameraSelector, previewUseCase, imageCaptureUseCase
+                        )
+                    } catch (ex: Exception) {
+                        Log.e("CameraCapture", "Failed to bind camera use cases", ex)
+                    }
                 }
             }
         }

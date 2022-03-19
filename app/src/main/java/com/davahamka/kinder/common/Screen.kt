@@ -17,6 +17,8 @@ sealed class Screen(val route: String) {
 
     object DonateScreen: Screen("donate_screen")
     object CameraScreen: Screen("camera_screen")
+    object DescriptionFormScreen: Screen("description_form_screen")
+    object DonateMapScreen: Screen("donate_map_screen")
 
     fun withArgs(vararg args: String): String {
         return buildString {

@@ -1,9 +1,16 @@
 package com.davahamka.kinder.domain.repository
 
+import com.davahamka.kinder.common.Resource
+import com.davahamka.kinder.domain.model.LoginRequest
+import com.davahamka.kinder.domain.model.LoginResponse
+import com.davahamka.kinder.domain.model.RegisterRequest
+import com.davahamka.kinder.domain.model.RegisterResponse
+import kotlinx.coroutines.flow.Flow
+
 interface AuthRepository {
 
-    suspend fun setLogin()
+    suspend fun setLogin(data: LoginRequest): Flow<Resource<LoginResponse>>
 
-    suspend fun setRegister()
+    suspend fun setRegister(data: RegisterRequest): Flow<Resource<RegisterResponse>>
 
 }

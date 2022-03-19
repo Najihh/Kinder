@@ -12,7 +12,8 @@ import com.davahamka.kinder.presentation.auth.register.RegisterScreen
 import com.davahamka.kinder.presentation.auth.user_preferred.UserPreferredScreen
 import com.davahamka.kinder.presentation.auth.user_preferred.UserRestrictionScreen
 import com.davahamka.kinder.presentation.donate.CameraScreen
-import com.davahamka.kinder.presentation.donate.DonateScreen
+import com.davahamka.kinder.presentation.donate.DescriptionFormScreen
+import com.davahamka.kinder.presentation.donate.DonateMapScreen
 import com.davahamka.kinder.presentation.home.HomeScreen
 import com.davahamka.kinder.presentation.message.MessageScreen
 import com.davahamka.kinder.presentation.mission.MissionScreen
@@ -61,12 +62,16 @@ fun Navigation() {
             AccountScreen(navController = navController)
         }
 
-        composable(route = Screen.DonateScreen.route) {
-            DonateScreen()
+        composable(route = Screen.DonateMapScreen.route) {
+            DonateMapScreen(navController)
         }
 
         composable(route = Screen.CameraScreen.route) {
-            CameraScreen()
+            CameraScreen(navController = navController)
+        }
+
+        composable(route = Screen.DescriptionFormScreen.route) {
+            DescriptionFormScreen(navController = navController)
         }
     }
 }
