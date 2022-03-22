@@ -34,6 +34,9 @@
         <entry key="../../../../layout/compose-model-1647480133024.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1647486560320.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1647627788114.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1647745195978.xml" value="0.10430743243243243" />
+        <entry key="../../../../layout/compose-model-1647917938972.xml" value="0.10430743243243243" />
+        <entry key="../../../../layout/compose-model-1647921302347.xml" value="0.11064189189189189" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1135" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1135" />
         <entry key="app/src/main/res/drawable/icon_filled_chat.xml" value="0.1135" />
@@ -42,6 +45,7 @@
         <entry key="app/src/main/res/drawable/icon_outline_home.xml" value="0.1135" />
         <entry key="app/src/main/res/drawable/icon_outline_person.xml" value="0.1135" />
         <entry key="app/src/main/res/drawable/icon_target.xml" value="0.1135" />
+        <entry key="app/src/main/res/drawable/img_information_2.xml" value="0.121" />
         <entry key="app/src/main/res/drawable/logo_splash.xml" value="0.1135" />
       </map>
     </option>

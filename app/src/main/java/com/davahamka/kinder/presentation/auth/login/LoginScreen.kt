@@ -54,7 +54,7 @@ fun LoginScreen(
     ) {
         item {
             Text(
-                text = "Masuk",
+                text = "Login",
                 color= Black1,
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
@@ -110,7 +110,7 @@ fun LoginScreen(
                 ClickableText(
                     onClick = {  },
                     modifier = Modifier.fillMaxWidth(),
-                    text = AnnotatedString("Lupa password?"),
+                    text = AnnotatedString("Forgot your password?"),
                     style = TextStyle(color = Black1, textAlign = TextAlign.Right, fontWeight = FontWeight.Bold),
                 )
             }
@@ -118,14 +118,14 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             AuthenticationButton(
-                text = "Masuk",
+                text = "Login",
                 onClick = { navController?.navigate(Screen.HomeScreen.withArgs()) }
             )
 
             Spacer(modifier = Modifier.height(32.dp))
 
             Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Text(text = "Belum memiliki akun?", color = Black1)
+                Text(text = "Dont't have an account yet?", color = Black1)
                 ClickableText(
                     modifier = Modifier.padding(horizontal = 4.dp),
                     onClick = {
@@ -137,7 +137,7 @@ fun LoginScreen(
                             }
                         }))
                     },
-                    text = AnnotatedString("Daftar"),
+                    text = AnnotatedString("Register"),
                     style = TextStyle(fontWeight = FontWeight.Bold, color = PrimaryColor)
                 )
             }

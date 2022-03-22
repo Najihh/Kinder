@@ -106,9 +106,9 @@ fun InformationScreen(navController: NavController?) {
                 modifier = Modifier.padding(top = 32.dp).fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                Text(text = "Belum memiliki akun? Silahkan ")
+                Text(text = "Don't have an account yet? Please")
                 Text(
-                    text = "Daftar",
+                    text = "Register",
                     style = TextStyle(PrimaryColor, fontWeight = FontWeight.SemiBold),
                     modifier = Modifier.clickable {
                         navController?.navigate(Screen.RegisterScreen.route)

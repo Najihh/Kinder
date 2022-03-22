@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import app.futured.donut.compose.DonutProgress
 import app.futured.donut.compose.data.DonutModel
@@ -28,18 +29,17 @@ import coil.compose.rememberImagePainter
 import com.davahamka.kinder.common.Screen
 import com.davahamka.kinder.presentation.CameraCapture
 import com.davahamka.kinder.presentation.auth.InformationScreen
+import com.davahamka.kinder.presentation.auth.login.LoginViewModel
 import com.davahamka.kinder.presentation.donate.components.ItemInformationGizi
 import com.davahamka.kinder.presentation.donate.components.OptionPill
 import com.davahamka.kinder.presentation.donate.components.QuantityPill
 import com.davahamka.kinder.presentation.ui.component.TopBarDescription
-import com.davahamka.kinder.presentation.ui.theme.Black1
-import com.davahamka.kinder.presentation.ui.theme.Green3
-import com.davahamka.kinder.presentation.ui.theme.Grey1
-import com.davahamka.kinder.presentation.ui.theme.White1
+import com.davahamka.kinder.presentation.ui.theme.*
+import com.davahamka.kinder.static.NutritionSummaryDataStatic
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
-fun CameraScreen(modifier: Modifier = Modifier, navController: NavController) {
+fun CameraScreen(modifier: Modifier = Modifier, navController: NavController, viewModel: DonateFormViewModel = hiltViewModel()) {
     val emptyImageUri = Uri.parse("file://dev/null")
     var imageUri by remember { mutableStateOf(emptyImageUri) }
     if (imageUri != emptyImageUri) {
@@ -62,8 +62,8 @@ fun CameraScreen(modifier: Modifier = Modifier, navController: NavController) {
                             )
                             Spacer(modifier = Modifier.width(10.dp))
                             Column() {
-                                Text(text = "Sawo", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                                Text(text = "234 Kalori")
+                                Text(text = "Dragon Fruit", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                                Text(text = "234 kal")
                             }
                         }
                         Column(modifier = Modifier
@@ -75,14 +75,14 @@ fun CameraScreen(modifier: Modifier = Modifier, navController: NavController) {
                             verticalArrangement = Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ){
-                            Text(text = "Kondisi Bagus", color = Green3, modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp))
+                            Text(text = "Good Condition", color = Green3, modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp))
                         }
                     }
                     Divider(
                         thickness = 1.dp,
                         modifier = Modifier.padding(vertical = 14.dp, horizontal = 18.dp)
                     )
-                    Text(text = "Ringkasan Gizi", fontSize=14.sp, fontWeight= FontWeight.Bold, modifier = Modifier.padding(horizontal = 18.dp))
+                    Text(text = "Nutrition Summary", fontSize=14.sp, fontWeight= FontWeight.Bold, modifier = Modifier.padding(horizontal = 18.dp))
 
                     DonutProgress(
                         model = DonutModel(
@@ -105,10 +105,9 @@ fun CameraScreen(modifier: Modifier = Modifier, navController: NavController) {
                         modifier = Modifier.padding(start = 18.dp, top = 12.dp)
                     ){
                         item {
-                            ItemInformationGizi()
-                            ItemInformationGizi()
-                            ItemInformationGizi()
-                            ItemInformationGizi()
+                            NutritionSummaryDataStatic.dataNutrionSummary.forEach {
+                                ItemInformationGizi(it)
+                            }
                         }
                     }
 
@@ -122,9 +121,9 @@ fun CameraScreen(modifier: Modifier = Modifier, navController: NavController) {
                             mainAxisSpacing = 12.dp,
                             crossAxisSpacing = 16.dp,
                         ) {
-                            OptionPill("Jantung")
-                            OptionPill("Diabetes")
-                            OptionPill("Lambung")
+                            OptionPill("Heart disease", notRecommended = true)
+                            OptionPill("Diabetes",  notRecommended = true)
+                            OptionPill("Stomach Ache",  notRecommended = true)
                         }
 
                         Text(text = "Jenis makanan ini bermanfaat untuk masalah kesehatan")
@@ -134,8 +133,8 @@ fun CameraScreen(modifier: Modifier = Modifier, navController: NavController) {
                             mainAxisSpacing = 12.dp,
                             crossAxisSpacing = 16.dp,
                         ) {
-                            OptionPill("Lambung")
-                            OptionPill("Darah Rendah")
+                            OptionPill("Stomatch", notRecommended = false)
+                            OptionPill("Low Blood", notRecommended = false)
                         }
 
                         Spacer(modifier = Modifier.height(16.dp))
@@ -145,16 +144,43 @@ fun CameraScreen(modifier: Modifier = Modifier, navController: NavController) {
                         Spacer(modifier = Modifier.padding(16.dp))
                         Text(text = "Masukkan Kuantitas yang Ingin Didonasikan")
                         Row(modifier = Modifier.padding(vertical = 16.dp)) {
-                            QuantityPill()
-                            QuantityPill()
-                            QuantityPill()
-                            QuantityPill()
+                            QuantityPill("1", active = viewModel.quantity == "1" , onClick = {viewModel.onEvent(DonateFormEvent.OnChangeQuantity("1"))})
+                            QuantityPill("2", active = viewModel.quantity == "2", onClick = {viewModel.onEvent(DonateFormEvent.OnChangeQuantity("2"))})
+                            QuantityPill("3", active = viewModel.quantity == "3", onClick = {viewModel.onEvent(DonateFormEvent.OnChangeQuantity("3"))})
+                            QuantityPill("4", active = viewModel.quantity == "4",onClick = {viewModel.onEvent(DonateFormEvent.OnChangeQuantity("4"))})
+                            QuantityPill("5", active = viewModel.quantity == "5" ,onClick = {viewModel.onEvent(DonateFormEvent.OnChangeQuantity("5"))})
                         }
-                        OutlinedTextField(value = "", onValueChange = {}, modifier = Modifier.fillMaxWidth(), )
-
+                        OutlinedTextField(value =viewModel.quantity, onValueChange = {}, modifier = Modifier.fillMaxWidth(), )
                     }
-
-
+                    Column(modifier = Modifier.padding(vertical = 16.dp, horizontal = 18.dp)) {
+                        Text(text = "Jenis Aktivitas")
+                        Row(
+                            modifier = Modifier.padding(top = 10.dp)
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .background(color = Grey2, shape = RoundedCornerShape(24.dp))
+                                    .width(100.dp)
+                                    .height(37.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Text(text = "Donate")
+                            }
+                            Spacer(modifier = Modifier.width(14.dp))
+                            Column(
+                                modifier = Modifier
+                                    .background(color = Grey2, shape = RoundedCornerShape(24.dp))
+                                    .width(100.dp)
+                                    .height(37.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Text(text = "Cheap Sale")
+                            }
+                            Spacer(modifier = Modifier.width(14.dp))
+                        }
+                    }
 
                     Column(
                         modifier = Modifier.padding(vertical = 18.dp, horizontal = 18.dp)

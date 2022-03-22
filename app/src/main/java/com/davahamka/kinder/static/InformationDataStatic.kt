@@ -12,24 +12,25 @@ data class DataCard(
 object InformationDataStatic {
     val dataCard = listOf<DataCard>(
         DataCard(
-            "Temukan Berbagai Kebaikan",
-            description = "Kemudahan dalam menemukan target donasi " +
-                    "dengan melakukan scan AI pada makanan dan " +
-                    "memilih metode pengirimannya",
+            "Find good things",
+            description = "\n" +
+                    "Ease of finding donation targets " +
+                    "by performing AI scans on food and " +
+                    "choose the shipping method",
             image = R.drawable.img_information_one
             ),
         DataCard(
-            "Berbagai Makanan Gratis",
-            description = "Akses mudah dalam menemukan lokasi " +
+            "Variety of free food",
+            description = "Easy access in finding location " +
                     "pembagian makanan gratis dari berbagai aksi " +
-                    "kebaikan orang atau komunitas sosial",
+                    "free food distribution from various actions",
             image = R.drawable.img_information_2
             ),
         DataCard(
-            "Temukan Komoditas Murah",
+            "Find cheap commodities",
             description = "Kemudahan dalam menemukan lokasi " +
-                    "penjual komoditas makanan murah dengan " +
-                    "berbagai makanan jadi dan mentah",
+                    "Ease of finding the location " +
+                    "various prepared and raw foods",
             image = R.drawable.img_information_three
         ),
     )

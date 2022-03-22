@@ -8,13 +8,14 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.davahamka.kinder.common.Screen
 import com.davahamka.kinder.presentation.ui.component.TopBar
 import com.davahamka.kinder.presentation.ui.component.TopBarDescription
 
 @Composable
-fun DescriptionFormScreen(navController: NavController) {
+fun DescriptionFormScreen(navController: NavController, viewModel: DonateFormViewModel = hiltViewModel()) {
     Scaffold(
         topBar = { TopBarDescription(title = "Deskripsi Makanan") }
     ) {
@@ -24,13 +25,24 @@ fun DescriptionFormScreen(navController: NavController) {
                     modifier = Modifier.padding(horizontal = 18.dp, vertical = 24.dp)
                 ) {
                     Text(text = "Judul")
-                    OutlinedTextField(value = "", onValueChange = {}, modifier = Modifier
+                    OutlinedTextField(
+                        value = viewModel.title,
+                        onValueChange = {
+                            viewModel.onEvent(DonateFormEvent.OnChangeTitle(it))
+                        },
+                        modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 12.dp) ,placeholder = {
                         Text("Masukkan judul disini")
                     })
                     Text(text = "Deskripsi", modifier = Modifier.padding(top = 18.dp))
-                    OutlinedTextField(value = "", onValueChange = {}, maxLines = 4, singleLine = false, modifier = Modifier
+                    OutlinedTextField(
+                        value = viewModel.description,
+                        onValueChange = {
+                                        viewModel.onEvent(DonateFormEvent.OnChangeDescription(it))
+                        },
+                        maxLines = 4,
+                        singleLine = false, modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 12.dp), placeholder = {
                         Text(text = "Masukkan deskripsi")

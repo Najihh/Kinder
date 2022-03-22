@@ -13,7 +13,7 @@ fun ListItemNearest() {
         modifier = Modifier.padding(bottom = 32.dp)
     ) {
         NearestDataStatic.dataCard.map {
-            ItemNearest()
+            ItemNearest(it)
         }
     }
 }

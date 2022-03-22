@@ -11,8 +11,8 @@ sealed class NavigationItem(
     var icon: Int,
     var iconSelected: Int,
     var title: String) {
-    object Home: NavigationItem("home_screen", R.drawable.icon_outline_home,R.drawable.icon_filled_home, title= "Beranda")
-    object Mission: NavigationItem("mission_screen", R.drawable.icon_target , R.drawable.icon_target, title = "Misi")
-    object Message: NavigationItem("message_screen", R.drawable.icon_outline_chat, R.drawable.icon_filled_chat, title = "Pesan")
-    object Account: NavigationItem("account_screen", R.drawable.icon_outline_person,  R.drawable.icon_filled_person, title = "Akun")
+    object Home: NavigationItem("home_screen", R.drawable.icon_outline_home,R.drawable.icon_filled_home, title= "Home")
+    object Mission: NavigationItem("mission_screen", R.drawable.icon_target , R.drawable.icon_target, title = "Mission")
+    object Message: NavigationItem("message_screen", R.drawable.icon_outline_chat, R.drawable.icon_filled_chat, title = "Message")
+    object Account: NavigationItem("account_screen", R.drawable.icon_outline_person,  R.drawable.icon_filled_person, title = "Account")
 }

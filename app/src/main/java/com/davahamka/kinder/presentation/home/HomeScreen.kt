@@ -2,6 +2,7 @@ package com.davahamka.kinder.presentation.home
 
 import android.widget.Space
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -62,16 +63,7 @@ fun HomeScreen(navController: NavController?) {
         )
     }
 
-//    BottomSheetScaffold(scaffoldState = bottomSheetScaffoldShareState, sheetContent = {
-//        Column() {
-//            Spacer(modifier = Modifier.padding(16.dp))
-//            Text(text = "Tess")
-//        }
-//    }){
-//
-//    }
-
-
+    
     ModalBottomSheetLayout(
         sheetState = modalBottomSheetState,
         sheetContent = {
@@ -96,10 +88,10 @@ fun HomeScreen(navController: NavController?) {
                                 .padding(top = 6.dp)
                         ) {
                             Column() {
-                                Text(color = White1, fontWeight = FontWeight.Medium, text = "Hai Miftah,", fontSize = 18.sp)
+                                Text(color = White1, fontWeight = FontWeight.Medium, text = "Hi Miftah,", fontSize = 18.sp)
                                 Text(
                                     color = White1,
-                                    text = "Temukan berbagai kebaikan hari ini",
+                                    text = "Find good things today",
 
                                     )
                             }
@@ -108,7 +100,9 @@ fun HomeScreen(navController: NavController?) {
                                 verticalArrangement = Arrangement.Center,
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-                                Icon(painter = painterResource(id = R.drawable.ic_leaderboard), contentDescription = null, tint = Color.White)
+                                Icon(painter = painterResource(id = R.drawable.ic_leaderboard), contentDescription = null, tint = Color.White, modifier = Modifier.clickable {
+                                    navController?.navigate(Screen.LeaderboardScreen.route)
+                                })
                                 Text(text = "400xp", color = Color.White)
                             }
                         }
