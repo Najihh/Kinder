@@ -22,7 +22,7 @@ import com.davahamka.kinder.presentation.ui.theme.Black1
 import com.davahamka.kinder.presentation.ui.theme.PrimaryColor
 
 @Composable
-fun DonateConfirmationScreen(navController: NavController) {
+fun DonateConfirmationReceiveScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -30,13 +30,13 @@ fun DonateConfirmationScreen(navController: NavController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Confirm if the recipient has received", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Black1)
-        Text(text = "the donation you offered", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Black1)
+        Text(text = "The donatur has received your ", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Black1)
+        Text(text = "collection request", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Black1)
         Spacer(modifier = Modifier.height(24.dp))
-        Image(painter = painterResource(R.drawable.img_receive_confirmation), contentDescription = null)
+        Image(painter = painterResource(R.drawable.img_receive_status), contentDescription = null)
         Spacer(modifier = Modifier.height(24.dp))
         Column() {
-            CustomButton(text = "Has been sent", onClick = { /*TODO*/ })
+            CustomButton(text = "Chat", onClick = { /*TODO*/ })
             Spacer(modifier = Modifier.height(10.dp))
             Button(
                 colors = ButtonDefaults.buttonColors(

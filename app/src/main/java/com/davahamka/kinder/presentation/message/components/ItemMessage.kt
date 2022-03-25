@@ -13,14 +13,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.davahamka.kinder.common.Screen
 import com.davahamka.kinder.presentation.ui.theme.Grey1
 import com.davahamka.kinder.static.Message
 
 @Composable
-fun ItemMessage(data: Message) {
+fun ItemMessage(data: Message, navController: NavController) {
     Column(
-        modifier = Modifier.fillMaxWidth() .clickable {  },
+        modifier = Modifier.fillMaxWidth() .clickable { navController.navigate(Screen.MessageDetailScreen.route) },
     ) {
         Spacer(modifier = Modifier.height(8.dp))
         Row(

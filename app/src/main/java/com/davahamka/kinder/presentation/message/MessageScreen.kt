@@ -13,6 +13,6 @@ fun MessageScreen(navController: NavController) {
         bottomBar = { BottomNavigationBar( navController = navController) },
         topBar = { TopBarMission("Message") }
     ) {
-        ListMessage()
+        ListMessage(navController)
     }
 }

@@ -11,12 +11,10 @@ import com.davahamka.kinder.presentation.auth.login.LoginScreen
 import com.davahamka.kinder.presentation.auth.register.RegisterScreen
 import com.davahamka.kinder.presentation.auth.user_preferred.UserPreferredScreen
 import com.davahamka.kinder.presentation.auth.user_preferred.UserRestrictionScreen
-import com.davahamka.kinder.presentation.donate.CameraScreen
-import com.davahamka.kinder.presentation.donate.DescriptionFormScreen
-import com.davahamka.kinder.presentation.donate.DonateConfirmationScreen
-import com.davahamka.kinder.presentation.donate.DonateMapScreen
+import com.davahamka.kinder.presentation.donate.*
 import com.davahamka.kinder.presentation.home.HomeScreen
 import com.davahamka.kinder.presentation.leaderboard.LeaderboardScreen
+import com.davahamka.kinder.presentation.message.MessageDetailScreen
 import com.davahamka.kinder.presentation.message.MessageScreen
 import com.davahamka.kinder.presentation.mission.MissionScreen
 
@@ -60,6 +58,10 @@ fun Navigation() {
             MessageScreen(navController = navController)
         }
 
+        composable(route = Screen.MessageDetailScreen.route) {
+            MessageDetailScreen(navController = navController)
+        }
+
         composable(route = Screen.AccountScreen.route) {
             AccountScreen(navController = navController)
         }
@@ -82,6 +84,14 @@ fun Navigation() {
 
         composable(route = Screen.DonateConfirmationScreen.route) {
             DonateConfirmationScreen(navController = navController)
+        }
+
+        composable(route = Screen.DonateDetailMapScreen.route) {
+            DonateDetailMapScreen(navController = navController)
+        }
+        
+        composable(route = Screen.DonateConfirmationReceiveScreen.route) {
+            DonateConfirmationReceiveScreen(navController = navController)
         }
     }
 }

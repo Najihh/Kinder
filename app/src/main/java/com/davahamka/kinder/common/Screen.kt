@@ -10,19 +10,33 @@ sealed class Screen(val route: String) {
     object UserPreferredScreen: Screen("auth_userpreferred_screen")
     object UserRestrictionScreen: Screen("auth_userrestriction_screen")
 
+    // home screen
     object HomeScreen: Screen("home_screen")
+
+    // mission screen
     object MissionScreen: Screen("mission_screen")
+
+    // message / chat screen
     object MessageScreen: Screen("message_screen")
+    object MessageDetailScreen: Screen("message_detail_screen")
+
+    // account screen
     object AccountScreen: Screen("account_screen")
 
+    // donation screen
     object DonateScreen: Screen("donate_screen")
     object CameraScreen: Screen("camera_screen")
     object DescriptionFormScreen: Screen("description_form_screen")
     object DonateMapScreen: Screen("donate_map_screen")
     object DonateConfirmationScreen: Screen("donate_confirmation_screen")
+    object DonateDetailMapScreen: Screen("donate_detail_map_screen")
+    object DonateConfirmationReceiveScreen: Screen("donate_confirmation_receive_screen")
 
+    // leaderboard & level screen
     object LeaderboardScreen: Screen("leaderboard_screen")
 
+
+    // routing helpers args
     fun withArgs(vararg args: String): String {
         return buildString {
             append(route)

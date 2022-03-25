@@ -39,7 +39,7 @@ fun DonateOrReceiveButton(onClickDonate: ()->Unit, onClickReceive: ()->Unit) {
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Image(painter = painterResource(id = R.drawable.vector), contentDescription = null, modifier = Modifier.size(32.dp))
-                    Text(text = "Berbagi Makanan", color = White1)
+                    Text(text = "Share Food", color = White1)
                 }
             }
             Spacer(modifier = Modifier.width(8.dp))
@@ -56,7 +56,7 @@ fun DonateOrReceiveButton(onClickDonate: ()->Unit, onClickReceive: ()->Unit) {
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Image(painter = painterResource(id = R.drawable.ic_find_donate), contentDescription = null, modifier = Modifier.size(32.dp))
-                    Text(text = "Mencari Makanan", color = White1)
+                    Text(text = "Find Food", color = White1)
                 }
             }
         }

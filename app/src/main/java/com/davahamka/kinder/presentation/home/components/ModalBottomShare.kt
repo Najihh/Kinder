@@ -27,7 +27,7 @@ fun ModalBottomShare(navController: NavController?) {
     Column(
         modifier = Modifier.padding(top = 24.dp, start = 24.dp, end = 24.dp, bottom = 32.dp)
     ) {
-        Text(text = "Aktivitas Berbagi Makanan", fontWeight = FontWeight.Bold, fontSize = 14.sp, modifier = Modifier.padding(bottom = 26.dp))
+        Text(text = "Food Sharing Activities", fontWeight = FontWeight.Bold, fontSize = 14.sp, modifier = Modifier.padding(bottom = 26.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.clickable {
@@ -37,8 +37,8 @@ fun ModalBottomShare(navController: NavController?) {
             Image(painter = painterResource(id = R.drawable.icon_donasi), contentDescription = null, modifier = Modifier.size(48.dp))
             Spacer(modifier = Modifier.width(12.dp))
             Column() {
-                Text(text = "Berdonasi", fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                Text(fontSize=12.sp,color= Grey1 , text = "Donasikan makananmu yang berlebih dan berisisa untuk  membantu saudara kita yang membutuhkan")
+                Text(text = "Donate", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                Text(fontSize=12.sp,color= Grey1 , text = "Donate your excess and full of food to help our brothers in need")
             }
         }
         Divider(modifier = Modifier.padding(vertical = 14.dp).fillMaxWidth(),thickness = 1.dp)
@@ -48,8 +48,8 @@ fun ModalBottomShare(navController: NavController?) {
             Image(painter = painterResource(id = R.drawable.icon_obral), contentDescription = null, modifier = Modifier.size(48.dp))
             Spacer(modifier = Modifier.width(12.dp))
             Column() {
-                Text(text = "Jual Murah", fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                Text(fontSize=12.sp, color= Grey1 ,text = "Jual produkmu yang tidak laku di pasaran dengan harga yang lebih bersahabat dengan masyarakat kecil")
+                Text(text = "Cheap Sale", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                Text(fontSize=12.sp, color= Grey1 ,text = "Sell \u200B\u200Byour products that are not selling well in the market at prices that are more friendly to the small community")
             }
         }
     }

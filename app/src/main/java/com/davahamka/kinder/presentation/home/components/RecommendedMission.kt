@@ -26,7 +26,7 @@ fun RecommendationMission() {
             .fillMaxWidth()
     ) {
         
-        Text(text = "Rekomendasi Misi Terpopuler", fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Black1)
+        Text(text = "Most Popular Mission Recommendations", fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Black1)
         HorizontalPager(
             count = 3,
             state = pagerState,

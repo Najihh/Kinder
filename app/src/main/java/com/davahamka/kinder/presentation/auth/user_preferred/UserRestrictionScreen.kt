@@ -18,6 +18,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.davahamka.kinder.common.Screen
 import com.davahamka.kinder.presentation.auth.user_preferred.component.NextButton
 import com.davahamka.kinder.presentation.auth.user_preferred.component.SelectionPill
 import com.davahamka.kinder.presentation.auth.user_preferred.component.SelectionRestrictionPill
@@ -86,7 +87,7 @@ fun UserRestrictionScreen(
 
         NextButton(
             text = "Mulai Sekarang",
-            onClick = {  },
+            onClick = { navController?.navigate(Screen.HomeScreen.route)  },
             modifier = Modifier.layoutId("greenButton")
         )
     }

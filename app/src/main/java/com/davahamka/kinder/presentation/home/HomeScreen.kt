@@ -40,7 +40,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun HomeScreen(navController: NavController?) {
+fun HomeScreen(navController: NavController) {
 
     val systemUiController = rememberSystemUiController()
     val bottomSheetScaffoldShareState = rememberBottomSheetScaffoldState(
@@ -123,7 +123,7 @@ fun HomeScreen(navController: NavController?) {
                                     cursorColor = PrimaryColor
                                 ),
                                 placeholder = {
-                                    Text(text = "Telusuri di sini")
+                                    Text(text = "Find items here")
                                 },
                                 leadingIcon = {
                                     Icon(imageVector = Icons.Outlined.Search, contentDescription = null)
@@ -144,24 +144,22 @@ fun HomeScreen(navController: NavController?) {
                     ) {
                         RecommendationMission()
                     }
-                DonateOrReceiveButton(
-                    onClickDonate = {
-                        coroutineScope.launch { modalBottomSheetState.show() }
-                    },
-                    onClickReceive = {
-                        coroutineScope.launch {
+                    DonateOrReceiveButton(
+                        onClickDonate = {
                             coroutineScope.launch { modalBottomSheetState.show() }
+                        },
+                        onClickReceive = {
+                            coroutineScope.launch {
+                                coroutineScope.launch { modalBottomSheetState.show() }
+                            }
                         }
-                    }
-                )
-
-
-
+                    )
+                    LevelCard()
                     Column(
                         modifier = Modifier.padding(top = 14.dp, start = 16.dp, end = 16.dp)
                     ) {
-                        Text(text = "Pencarian Terdekat", fontSize = 16.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 16.dp))
-                        ListItemNearest()
+                        Text(text = "Nearest Search", fontSize = 16.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 16.dp))
+                        ListItemNearest(navController)
                     }
                 }
             }
@@ -170,10 +168,4 @@ fun HomeScreen(navController: NavController?) {
     }
 
 
-}
-
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen(navController = null)
 }

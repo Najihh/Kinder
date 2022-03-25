@@ -2,6 +2,7 @@ package com.davahamka.kinder.presentation.donate
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -17,14 +18,14 @@ import com.davahamka.kinder.presentation.ui.component.TopBarDescription
 @Composable
 fun DescriptionFormScreen(navController: NavController, viewModel: DonateFormViewModel = hiltViewModel()) {
     Scaffold(
-        topBar = { TopBarDescription(title = "Deskripsi Makanan") }
+        topBar = { TopBarDescription(title = "Food Description") }
     ) {
         LazyColumn() {
             item {
                 Column(
                     modifier = Modifier.padding(horizontal = 18.dp, vertical = 24.dp)
                 ) {
-                    Text(text = "Judul")
+                    Text(text = "Food Name")
                     OutlinedTextField(
                         value = viewModel.title,
                         onValueChange = {
@@ -33,22 +34,24 @@ fun DescriptionFormScreen(navController: NavController, viewModel: DonateFormVie
                         modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 12.dp) ,placeholder = {
-                        Text("Masukkan judul disini")
+                        Text("Type your food name here")
                     })
-                    Text(text = "Deskripsi", modifier = Modifier.padding(top = 18.dp))
+                    Text(text = "Description", modifier = Modifier.padding(top = 18.dp))
                     OutlinedTextField(
                         value = viewModel.description,
                         onValueChange = {
                                         viewModel.onEvent(DonateFormEvent.OnChangeDescription(it))
                         },
                         maxLines = 4,
-                        singleLine = false, modifier = Modifier
+                        singleLine = false,
+                        modifier = Modifier
                         .fillMaxWidth()
+                            .height(160.dp)
                         .padding(top = 12.dp), placeholder = {
-                        Text(text = "Masukkan deskripsi")
+                        Text(text = "Insert description")
                     })
                     Column(modifier = Modifier.padding(top = 64.dp)) {
-                        CustomButton(text = "Lanjut", onClick = { navController.navigate(Screen.DonateMapScreen.route) })
+                        CustomButton(text = "Continue", onClick = { navController.navigate(Screen.DonateMapScreen.route) })
                     }
 
                 }

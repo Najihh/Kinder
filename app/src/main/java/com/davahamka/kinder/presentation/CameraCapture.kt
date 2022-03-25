@@ -20,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.davahamka.kinder.presentation.ui.component.TopBarDescription
 import com.davahamka.kinder.presentation.ui.theme.Green3
@@ -80,12 +82,21 @@ fun CameraCapture(
                         }
                     )
 
-                    Box(
-                        modifier = Modifier.border(4.dp, color = PrimaryColor).width(240.dp).height(240.dp).align(
-                            Alignment.Center)
-                    ) {
+                    Column(modifier = Modifier.align(
+                        Alignment.Center
+                    )) {
+                        Text(text = "Good Condition", fontWeight = FontWeight.Bold, color = PrimaryColor, textAlign = TextAlign.Center, modifier =Modifier.padding(bottom = 2.dp))
+                        Box(
+                            modifier = Modifier
+                                .border(4.dp, color = PrimaryColor)
+                                .width(240.dp)
+                                .height(240.dp)
 
+                        ) {
+
+                        }
                     }
+
                     Button(
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = PrimaryColor,
@@ -106,7 +117,7 @@ fun CameraCapture(
                             }
                         }
                     ) {
-                        Text("Lanjut")
+                        Text("Continue")
                     }
                 }
                 LaunchedEffect(previewUseCase) {

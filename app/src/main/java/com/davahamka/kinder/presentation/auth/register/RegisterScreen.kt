@@ -10,10 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material.icons.outlined.MailOutline
-import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
@@ -58,14 +55,14 @@ fun RegisterScreen(
     ) {
         item {
             Text(
-                text = "Daftar",
+                text = "Register",
                 color= Black1,
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(top = 88.dp)
             )
             Text(
-                text = "Akun Baru",
+                text = "New Account",
                 color= Black1,
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
@@ -80,7 +77,7 @@ fun RegisterScreen(
                     Icon(imageVector = Icons.Outlined.Person, contentDescription = "")
                 },
                 placeholder = {
-                    Text("Nama Akun")
+                    Text("Account Name")
                 },
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     unfocusedBorderColor = Grey2,
@@ -121,13 +118,12 @@ fun RegisterScreen(
                 value = viewModel.phoneNumber,
                 onValueChange = { viewModel.onEvent(event = RegisterEvent.OnChangePhoneNumber(it))},
                 leadingIcon = {
-                    Row(modifier = Modifier.background(color = Grey2)) {
-                        Text(text = "🇮🇩")
-                        Text(text = "+62")
+                    Row() {
+                        Icon(imageVector = Icons.Outlined.Phone, contentDescription = "")
                     }
                 },
                 placeholder = {
-                    Text("Nomor handphone")
+                    Text("Phone Number")
                 },
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     unfocusedBorderColor = Grey2,
@@ -150,7 +146,7 @@ fun RegisterScreen(
                     Icon(imageVector = Icons.Outlined.Lock, contentDescription = "")
                 },
                 placeholder = {
-                    Text("Kata sandi")
+                    Text("Password")
                 },
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     unfocusedBorderColor = Grey2,
@@ -173,8 +169,10 @@ fun RegisterScreen(
                         checkedColor = PrimaryColor
                     )
                 )
-                Text(text = "Dengan mendaftar, Anda telah menyetujui Ketentuan " +
-                        "Pengguna dan Kebijakan Privasi", color = Black1,
+
+
+                Text(text = "By registering you agree to the terms " +
+                        "of use and privacy policy", color = Black1,
                 modifier = Modifier.padding(4.dp).clickable {  viewModel.onEvent(RegisterEvent.OnTogglePrivacyPolicy) })
             }
 
@@ -186,7 +184,7 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
             Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Text(text = "Sudah memiliki akun?", color = Black1)
+                Text(text = "Already have an account?", color = Black1)
                 ClickableText(
                     modifier = Modifier.padding(horizontal = 4.dp),
                     onClick = { viewModel.onEvent(RegisterEvent.NavigateToLogin(cb = {
@@ -196,7 +194,7 @@ fun RegisterScreen(
                             }
                         }
                     })) },
-                    text = AnnotatedString("Masuk"),
+                    text = AnnotatedString("Login"),
                     style = TextStyle(fontWeight = FontWeight.Bold, color = PrimaryColor)
                 )
             }

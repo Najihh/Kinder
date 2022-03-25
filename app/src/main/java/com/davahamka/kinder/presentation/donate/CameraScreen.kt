@@ -2,23 +2,31 @@ package com.davahamka.kinder.presentation.donate
 
 import android.net.Uri
 import android.widget.Space
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.toSize
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -26,6 +34,7 @@ import app.futured.donut.compose.DonutProgress
 import app.futured.donut.compose.data.DonutModel
 import app.futured.donut.compose.data.DonutSection
 import coil.compose.rememberImagePainter
+import com.davahamka.kinder.R
 import com.davahamka.kinder.common.Screen
 import com.davahamka.kinder.presentation.CameraCapture
 import com.davahamka.kinder.presentation.auth.InformationScreen
@@ -42,10 +51,34 @@ import com.google.accompanist.flowlayout.FlowRow
 fun CameraScreen(modifier: Modifier = Modifier, navController: NavController, viewModel: DonateFormViewModel = hiltViewModel()) {
     val emptyImageUri = Uri.parse("file://dev/null")
     var imageUri by remember { mutableStateOf(emptyImageUri) }
+
+    var expanded by remember { mutableStateOf(false)}
+    val list = listOf("Kilogram", "Piece", "Serving")
+    var selectedItem by remember { mutableStateOf("") }
+
+    var textFieldSize by remember { mutableStateOf(Size.Zero)}
+
+    val icon = if (expanded) {
+        Icons.Filled.KeyboardArrowUp
+    } else {
+        Icons.Filled.KeyboardArrowDown
+    }
+
     if (imageUri != emptyImageUri) {
-        Scaffold(topBar = { TopBarDescription("Informasi Makanan") }) {
+        Scaffold(topBar = { TopBarDescription("Food Information") }) {
             LazyColumn(modifier = modifier) {
                 item {
+                    Column(modifier = Modifier
+                        .fillMaxWidth()
+                        .height(320.dp)) {
+                        Image(
+                                painter = rememberImagePainter(imageUri),
+                                modifier = Modifier
+                                    .fillMaxSize(),
+                                contentDescription = "Captured image",
+                            contentScale = ContentScale.Crop
+                            )
+                    }
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -53,13 +86,16 @@ fun CameraScreen(modifier: Modifier = Modifier, navController: NavController, vi
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Row() {
-                            Image(
-                                painter = rememberImagePainter(imageUri),
-                                modifier = Modifier
-                                    .height(140.dp)
-                                    .width(140.dp),
-                                contentDescription = "Captured image"
-                            )
+//                            Image(
+//                                painter = rememberImagePainter(imageUri),
+//                                modifier = Modifier
+//                                    .height(140.dp)
+//                                    .width(140.dp),
+//                                contentDescription = "Captured image"
+//                            )
+                            Image(painter = painterResource(id = R.drawable.img_buah_naga), contentDescription = null, modifier = Modifier
+                                .width(78.dp)
+                                .height(78.dp))
                             Spacer(modifier = Modifier.width(10.dp))
                             Column() {
                                 Text(text = "Dragon Fruit", fontSize = 16.sp, fontWeight = FontWeight.Bold)
@@ -114,7 +150,7 @@ fun CameraScreen(modifier: Modifier = Modifier, navController: NavController, vi
                     Column(
                         modifier = Modifier.padding(18.dp)
                     ) {
-                        Text(text = "Makanan yang tidak untuk penderita penyakit di bawah ini")
+                        Text(text = "Foods that are not for people with the following diseases")
 
                         FlowRow(
                             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
@@ -126,7 +162,7 @@ fun CameraScreen(modifier: Modifier = Modifier, navController: NavController, vi
                             OptionPill("Stomach Ache",  notRecommended = true)
                         }
 
-                        Text(text = "Jenis makanan ini bermanfaat untuk masalah kesehatan")
+                        Text(text = "This type of food is beneficial for health problems")
 
                         FlowRow(
                             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
@@ -142,7 +178,7 @@ fun CameraScreen(modifier: Modifier = Modifier, navController: NavController, vi
                             .fillMaxWidth()
                             .height(2.dp))
                         Spacer(modifier = Modifier.padding(16.dp))
-                        Text(text = "Masukkan Kuantitas yang Ingin Didonasikan")
+                        Text(text = "Enter The Quantity You Want To Donate")
                         Row(modifier = Modifier.padding(vertical = 16.dp)) {
                             QuantityPill("1", active = viewModel.quantity == "1" , onClick = {viewModel.onEvent(DonateFormEvent.OnChangeQuantity("1"))})
                             QuantityPill("2", active = viewModel.quantity == "2", onClick = {viewModel.onEvent(DonateFormEvent.OnChangeQuantity("2"))})
@@ -150,33 +186,83 @@ fun CameraScreen(modifier: Modifier = Modifier, navController: NavController, vi
                             QuantityPill("4", active = viewModel.quantity == "4",onClick = {viewModel.onEvent(DonateFormEvent.OnChangeQuantity("4"))})
                             QuantityPill("5", active = viewModel.quantity == "5" ,onClick = {viewModel.onEvent(DonateFormEvent.OnChangeQuantity("5"))})
                         }
-                        OutlinedTextField(value =viewModel.quantity, onValueChange = {}, modifier = Modifier.fillMaxWidth(), )
+              
+                            OutlinedTextField(value = viewModel.quantity, onValueChange = {}, modifier = Modifier.fillMaxWidth(), placeholder = { Text(
+                                text = ("Type other quantity")
+                            )} )
+                            
+                        Spacer(modifier = Modifier.height(6.dp))
+                            OutlinedTextField(
+                                value = selectedItem,
+                                onValueChange = { selectedItem = it},
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable { expanded = !expanded }
+                                    .onGloballyPositioned { coordinates ->
+                                        textFieldSize = coordinates.size.toSize()
+                                    },
+                                trailingIcon = {
+                                    Icon(icon, contentDescription = null, modifier = Modifier.clickable { expanded = !expanded })
+                                },
+                                placeholder = { Text(text = "Select Unit")}
+                            )
+
+                            DropdownMenu(
+                                expanded = expanded,
+                                onDismissRequest = { expanded = false },
+                                modifier = Modifier.width(with(LocalDensity.current){textFieldSize.width.toDp()})) {
+                                
+                                list.forEach { label ->
+                                    DropdownMenuItem(onClick = {   selectedItem = label
+                                        expanded = false }) {
+                                        Text(text = label)
+                                    }
+                                }
+                            }
+
+
                     }
                     Column(modifier = Modifier.padding(vertical = 16.dp, horizontal = 18.dp)) {
-                        Text(text = "Jenis Aktivitas")
+                        Text(text = "Activity Type")
                         Row(
                             modifier = Modifier.padding(top = 10.dp)
                         ) {
                             Column(
                                 modifier = Modifier
-                                    .background(color = Grey2, shape = RoundedCornerShape(24.dp))
+                                    .background(
+                                        color = if (viewModel.activityType == "Donate") Orange1 else Grey2,
+                                        shape = RoundedCornerShape(24.dp)
+                                    )
                                     .width(100.dp)
-                                    .height(37.dp),
+                                    .height(37.dp)
+                                    .clickable {
+                                        viewModel.onEvent(DonateFormEvent.OnChangeActivityType("Donate"))
+                                    },
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center
                             ) {
-                                Text(text = "Donate")
+                                Text(
+                                    text = "Donate",
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = if (viewModel.activityType == "Donate") Color.White else Black1
+                                )
                             }
                             Spacer(modifier = Modifier.width(14.dp))
                             Column(
                                 modifier = Modifier
-                                    .background(color = Grey2, shape = RoundedCornerShape(24.dp))
+                                    .background(
+                                        color = if (viewModel.activityType == "Cheap Sale") Orange1 else Grey2,
+                                        shape = RoundedCornerShape(24.dp)
+                                    )
                                     .width(100.dp)
-                                    .height(37.dp),
+                                    .height(37.dp)
+                                    .clickable {
+                                        viewModel.onEvent(DonateFormEvent.OnChangeActivityType("Cheap Sale"))
+                                    },
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center
                             ) {
-                                Text(text = "Cheap Sale")
+                                Text(text = "Cheap Sale", fontWeight = FontWeight.SemiBold, color = if (viewModel.activityType == "Cheap Sale") Color.White else Black1,)
                             }
                             Spacer(modifier = Modifier.width(14.dp))
                         }
@@ -189,14 +275,14 @@ fun CameraScreen(modifier: Modifier = Modifier, navController: NavController, vi
                             onClick = {
                                 navController.navigate(Screen.DescriptionFormScreen.route)
                             },
-                            text = "Lanjutkan"
+                            text = "Continue"
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         CustomButton(
                             onClick = {
                                 imageUri = emptyImageUri
                             },
-                            text = "Kembali"
+                            text = "Go Back"
                         )
                     }
 

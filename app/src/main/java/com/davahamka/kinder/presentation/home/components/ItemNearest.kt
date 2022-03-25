@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -23,13 +24,17 @@ import coil.compose.AsyncImage
 import com.davahamka.kinder.presentation.ui.theme.*
 import com.davahamka.kinder.static.Nearest
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ItemNearest(it: Nearest) {
+fun ItemNearest(it: Nearest, onClick: ()-> Unit) {
     Card(
         modifier = Modifier
             .fillMaxSize()
             .height(120.dp),
-        elevation = 2.dp
+        elevation = 2.dp,
+        onClick = {
+            onClick()
+        }
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
