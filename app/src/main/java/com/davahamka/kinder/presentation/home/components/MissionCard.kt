@@ -42,7 +42,7 @@ fun MissionCard(page: Int) {
                 ) {
                     Icon(imageVector = Icons.Filled.Person, contentDescription = null, modifier = Modifier.size(9.dp))
                     Text(text = RecommendedMissionDataStatic.dataCard[page].people.toString(), fontWeight = FontWeight.Medium, fontSize = 10.sp)
-                    Text(text = " orang telah mengikuti misi ini", fontSize = 10.sp)
+                    Text(text = " people have followed this", fontSize = 10.sp)
                 }
                 Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
                     backgroundColor = RecommendedMissionDataStatic.dataCard[page].textColor,
@@ -50,7 +50,7 @@ fun MissionCard(page: Int) {
                 ),
                     shape = RoundedCornerShape(25.dp)
                     ) {
-                    Text(text = "Ikuti Sekarang", fontSize = 11.sp)
+                    Text(text = "Follow Now", fontSize = 11.sp)
                 }
             }
         }
