@@ -19,7 +19,7 @@ import com.google.accompanist.pager.rememberPagerState
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun RecommendationMission() {
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(1)
     Column(
         modifier = Modifier
             .padding(top = 32.dp, bottom = 12.dp, start = 16.dp, end = 16.dp)
@@ -33,7 +33,7 @@ fun RecommendationMission() {
             contentPadding = PaddingValues(20.dp),
 
             ) { page ->
-           MissionCard()
+           MissionCard(page)
         }
     }
 }

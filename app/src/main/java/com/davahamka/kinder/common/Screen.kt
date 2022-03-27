@@ -31,9 +31,12 @@ sealed class Screen(val route: String) {
     object DonateConfirmationScreen: Screen("donate_confirmation_screen")
     object DonateDetailMapScreen: Screen("donate_detail_map_screen")
     object DonateConfirmationReceiveScreen: Screen("donate_confirmation_receive_screen")
+    object SendRateScreen: Screen("send_rate_screen")
+
 
     // leaderboard & level screen
     object LeaderboardScreen: Screen("leaderboard_screen")
+    object LevelScreen: Screen("level_screen")
 
 
     // routing helpers args

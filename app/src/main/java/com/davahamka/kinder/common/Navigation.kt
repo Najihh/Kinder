@@ -13,6 +13,7 @@ import com.davahamka.kinder.presentation.auth.user_preferred.UserPreferredScreen
 import com.davahamka.kinder.presentation.auth.user_preferred.UserRestrictionScreen
 import com.davahamka.kinder.presentation.donate.*
 import com.davahamka.kinder.presentation.home.HomeScreen
+import com.davahamka.kinder.presentation.home.LevelScreen
 import com.davahamka.kinder.presentation.leaderboard.LeaderboardScreen
 import com.davahamka.kinder.presentation.message.MessageDetailScreen
 import com.davahamka.kinder.presentation.message.MessageScreen
@@ -92,6 +93,10 @@ fun Navigation() {
         
         composable(route = Screen.DonateConfirmationReceiveScreen.route) {
             DonateConfirmationReceiveScreen(navController = navController)
+        }
+
+        composable(route = Screen.LevelScreen.route) {
+            LevelScreen(navController = navController)
         }
     }
 }

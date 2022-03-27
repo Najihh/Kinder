@@ -92,7 +92,6 @@ fun HomeScreen(navController: NavController) {
                                 Text(
                                     color = White1,
                                     text = "Find good things today",
-
                                     )
                             }
                             Column(
