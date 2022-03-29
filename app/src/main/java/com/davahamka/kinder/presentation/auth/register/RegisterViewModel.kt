@@ -8,11 +8,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.davahamka.kinder.domain.model.RegisterRequest
+import com.davahamka.kinder.domain.usecase.user.RegisterUser
+import com.davahamka.kinder.domain.usecase.user.UserUseCases
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class RegisterViewModel @Inject constructor(
-
+    private val registerUseCases: UserUseCases
 ): ViewModel() {
 
     private val _state = mutableStateOf(RegisterState())
@@ -56,6 +61,11 @@ class RegisterViewModel @Inject constructor(
                     _state.value = RegisterState(isLoading = true)
                 }
                 if (name.isBlank() || password.isBlank() || email.isBlank() || phoneNumber.isBlank()) {
+                    viewModelScope.launch {
+                        registerUseCases.registerUser(
+                            RegisterRequest(email = email, name = name, no_hp = phoneNumber, password = password)
+                        )
+                    }
 
                 }
             }

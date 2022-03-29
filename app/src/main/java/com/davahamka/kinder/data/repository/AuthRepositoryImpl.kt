@@ -20,4 +20,8 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun setRegister(data: RegisterRequest): Flow<Resource<RegisterResponse>> {
         return api.setRegister(data)
     }
+
+    override suspend fun validateToken() {
+        return api.validateToken()
+    }
 }

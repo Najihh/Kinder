@@ -6,6 +6,10 @@ import com.davahamka.kinder.domain.model.LoginResponse
 import com.davahamka.kinder.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow
 
-class AuthInteractor (private val authRepository: AuthRepository){
-    suspend fun setLogin(data: LoginRequest): Flow<Resource<LoginResponse>> = authRepository.setLogin(data)
+class LoginAuth(
+    private val repository: AuthRepository
+) {
+    suspend operator fun invoke(loginRequest: LoginRequest): Flow<Resource<LoginResponse>> {
+        return repository.setLogin(loginRequest)
+    }
 }

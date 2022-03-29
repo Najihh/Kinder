@@ -139,7 +139,7 @@ fun ModalDetailItem(navController: NavController) {
                                 .padding(horizontal = 10.dp, vertical = 6.dp)
                         ) {
                             Image(painter = painterResource(id = R.drawable.ic_level_icon) , contentDescription = null, modifier = Modifier.size(12.dp))
-                            Text(text = "Pejuang Donasi", modifier = Modifier.padding(start = 8.dp), fontSize = 12.sp)
+                            Text(text = "Donation Warrior", modifier = Modifier.padding(start = 8.dp), fontSize = 12.sp)
                         }
                     }
                 }

@@ -17,8 +17,7 @@ interface KinderApi {
     suspend fun setLogin(@Body data: LoginRequest): Flow<Resource<LoginResponse>>
 
     @GET("/auth")
-        suspend fun validateToken(): Flow<Resource<Log>>
-
+    suspend fun validateToken()
 
 
     // donate
@@ -37,6 +36,7 @@ interface KinderApi {
     @POST("/predict")
     suspend fun predictImage()
 
+
     // user
     @POST("/user/register")
     suspend fun setRegister(@Body data: RegisterRequest): Flow<Resource<RegisterResponse>>
@@ -49,7 +49,4 @@ interface KinderApi {
 
     @GET("/user")
     suspend fun getUserById()
-
-
-
 }

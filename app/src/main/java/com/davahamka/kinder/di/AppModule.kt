@@ -2,6 +2,16 @@ package com.davahamka.kinder.di
 
 import com.davahamka.kinder.common.Constants
 import com.davahamka.kinder.data.api.KinderApi
+import com.davahamka.kinder.data.repository.AuthRepositoryImpl
+import com.davahamka.kinder.data.repository.DonateRepositoryImpl
+import com.davahamka.kinder.data.repository.UserRepositoryImpl
+import com.davahamka.kinder.domain.repository.AuthRepository
+import com.davahamka.kinder.domain.repository.DonateRepository
+import com.davahamka.kinder.domain.repository.UserRepository
+import com.davahamka.kinder.domain.usecase.auth.AuthUseCases
+import com.davahamka.kinder.domain.usecase.auth.LoginAuth
+import com.davahamka.kinder.domain.usecase.user.RegisterUser
+import com.davahamka.kinder.domain.usecase.user.UserUseCases
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,4 +34,37 @@ object AppModule {
             .create(KinderApi::class.java)
     }
 
+    @Provides
+    @Singleton
+    fun provideUserRepository(api: KinderApi): UserRepository {
+        return UserRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserUseCases(repository: UserRepository): UserUseCases {
+        return UserUseCases(
+            registerUser = RegisterUser(repository)
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthRepository(api: KinderApi): AuthRepository {
+        return AuthRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthUseCases(repository: AuthRepository): AuthUseCases {
+        return AuthUseCases(
+            loginAuth = LoginAuth(repository)
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideDonateRepository(api: KinderApi): DonateRepository {
+        return DonateRepositoryImpl(api)
+    }
 }
