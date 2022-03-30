@@ -1,5 +1,6 @@
 package com.davahamka.kinder.data.api
 import android.util.Log
+import com.davahamka.kinder.common.DataState
 import com.davahamka.kinder.common.Resource
 import com.davahamka.kinder.domain.model.LoginRequest
 import com.davahamka.kinder.domain.model.LoginResponse
@@ -13,8 +14,8 @@ import retrofit2.http.*
 interface KinderApi {
 
     // auth
-    @POST("/auth/login")
-    suspend fun setLogin(@Body data: LoginRequest): Flow<Resource<LoginResponse>>
+    @POST("auth/login")
+    suspend fun setLogin(@Body data: LoginRequest): LoginResponse
 
     @GET("/auth")
     suspend fun validateToken()

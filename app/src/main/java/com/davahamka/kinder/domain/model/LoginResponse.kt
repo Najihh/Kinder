@@ -1,6 +1,6 @@
 package com.davahamka.kinder.domain.model
 
 data class LoginResponse(
-    val id: String,
-    val isSt: Boolean,
+    val message: String?,
+    val token: String?,
 )

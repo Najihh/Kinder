@@ -119,7 +119,8 @@ fun LoginScreen(
 
             AuthenticationButton(
                 text = "Login",
-                onClick = { navController?.navigate(Screen.HomeScreen.withArgs()) }
+//                onClick = {}
+                onClick = { viewModel.onEvent(LoginEvent.OnSubmitLogin(cb={navController?.navigate(Screen.HomeScreen.withArgs())})) }
             )
 
             Spacer(modifier = Modifier.height(32.dp))
