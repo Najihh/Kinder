@@ -21,14 +21,15 @@ import androidx.core.provider.FontsContractCompat
 import com.davahamka.kinder.R
 import com.davahamka.kinder.presentation.ui.theme.Orange1
 import com.davahamka.kinder.presentation.ui.theme.White1
+import com.davahamka.kinder.static.MissionDetail
 import com.davahamka.kinder.static.RecommendedMissionDataStatic
 
 @Composable
-fun MissionCard() {
+fun MissionCard(data: MissionDetail) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = Color(0xFFFDE7F4), shape = RoundedCornerShape(18.dp)),
+            .background(color = data.bgColor, shape = RoundedCornerShape(18.dp)),
     ) {
         Spacer(modifier = Modifier.height(24.dp))
         Column(
@@ -40,9 +41,11 @@ fun MissionCard() {
                     .padding(vertical = 6.dp, horizontal = 10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(painter = painterResource(id = R.drawable.ic_free), contentDescription = null, tint = Color(0xFF2A2B3C))
+                Icon(painter = if(data.type=="Donate") painterResource(id = R.drawable.ic_free) else painterResource(
+                    id = R.drawable.ic_cheap_sale
+                ), contentDescription = null, tint = Color(0xFF2A2B3C))
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(text = "Donate", fontWeight = FontWeight.SemiBold)
+                Text(text = data.type, fontWeight = FontWeight.SemiBold)
             }
         }
         
@@ -52,14 +55,14 @@ fun MissionCard() {
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(painter = painterResource(id = R.drawable.img_mission_takeaway), contentDescription = null)
+            Image(painter = painterResource(id = data.imgMission), contentDescription = null)
             Spacer(modifier = Modifier.height(10.dp))
             Column(
                 modifier = Modifier
                     .background(color = Color(0xFFF8F8F8), shape = RoundedCornerShape(12.dp))
                     .padding(vertical = 8.dp, horizontal = 12.dp)
             ) {
-                Text(text = "+100xp", fontWeight = FontWeight.Bold, color = Orange1)
+                Text(text = "+${data.xp}xp", fontWeight = FontWeight.Bold, color = Orange1)
             }
         }
 
@@ -69,9 +72,8 @@ fun MissionCard() {
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp)
         ) {
-            Text(text = "Take food donation from Bu Yuli", fontWeight = FontWeight.Bold, fontSize = 22.sp, color = Color(0xFFE66480))
-            Text(text = "Donate free boxed rice meals to people who are being affected by the Covid-19 pandemic\n" +
-                    "in the Malang City area", modifier = Modifier.padding(top = 14.dp), color = Color(0xFF565656))
+            Text(text = data.title, fontWeight = FontWeight.Bold, fontSize = 22.sp, color = data.titleColor)
+            Text(text = data.description, modifier = Modifier.padding(top = 14.dp), color = Color(0xFF565656))
         }
 
         Spacer(modifier = Modifier.height(48.dp))
@@ -90,7 +92,7 @@ fun MissionCard() {
                 Text(text = " people have followed this", fontSize = 12.sp)
             }
             Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color(0xFFE7335A),
+                backgroundColor = data.btnColor,
                 contentColor = Color.White,
             ),
                 shape = RoundedCornerShape(25.dp),

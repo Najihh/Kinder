@@ -15,6 +15,7 @@ import com.davahamka.kinder.presentation.mission.components.MissionCard
 import com.davahamka.kinder.presentation.mission.components.SwipeCard
 import com.davahamka.kinder.presentation.ui.component.BottomNavigationBar
 import com.davahamka.kinder.presentation.ui.component.TopBarMission
+import com.davahamka.kinder.static.MissionDetailDataStatic
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -26,11 +27,10 @@ fun MissionScreen(navController: NavController){
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) {
         Box(modifier = Modifier.fillMaxSize().padding(top = 12.dp, start = 24.dp, end = 24.dp, bottom = 64.dp),contentAlignment = Alignment.Center){
-            SwipeCard(onSwiped = {}) {
-                MissionCard()
-            }
-            SwipeCard(onSwiped = {}) {
-                MissionCard()
+            MissionDetailDataStatic.dataCard.map {
+                SwipeCard(onSwiped = {}) {
+                    MissionCard(it)
+                }
             }
         }
 
