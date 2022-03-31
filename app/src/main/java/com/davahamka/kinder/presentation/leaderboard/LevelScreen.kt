@@ -80,7 +80,7 @@ fun LevelScreen(navController: NavController) {
 @ExperimentalPagerApi
 @Composable
 fun Tabs(pagerState: PagerState) {
-    var list = listOf("Donatur", "Finder")
+    var list = listOf("Donor", "Finder")
     var scope = rememberCoroutineScope()
 
     TabRow(
