@@ -7,5 +7,6 @@ import com.davahamka.kinder.domain.usecase.user.RegisterUser
 import kotlinx.coroutines.flow.Flow
 
 data class AuthUseCases (
-    val loginAuth: LoginAuth
+    val loginAuth: LoginAuth,
+    val validateToken: ValidateToken
     )

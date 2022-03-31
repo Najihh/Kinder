@@ -6,5 +6,12 @@ import com.davahamka.kinder.domain.model.RegisterResponse
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
+
     suspend fun registerUser(user: RegisterRequest): Flow<Resource<RegisterResponse>>
+
+    suspend fun updateUser()
+
+    suspend fun deleteUser()
+
+    suspend fun getUserById()
 }
