@@ -10,8 +10,8 @@ import com.davahamka.kinder.domain.repository.DonateRepository
 import com.davahamka.kinder.domain.repository.UserRepository
 import com.davahamka.kinder.domain.usecase.auth.AuthUseCases
 import com.davahamka.kinder.domain.usecase.auth.LoginAuth
-import com.davahamka.kinder.domain.usecase.user.RegisterUser
-import com.davahamka.kinder.domain.usecase.user.UserUseCases
+import com.davahamka.kinder.domain.usecase.auth.ValidateToken
+import com.davahamka.kinder.domain.usecase.user.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,7 +44,10 @@ object AppModule {
     @Singleton
     fun provideUserUseCases(repository: UserRepository): UserUseCases {
         return UserUseCases(
-            registerUser = RegisterUser(repository)
+            registerUser = RegisterUser(repository),
+            deleteUser = DeleteUser(repository),
+            getUserById = GetUserById(repository),
+            updateUser = UpdateUser(repository)
         )
     }
 
@@ -58,7 +61,8 @@ object AppModule {
     @Singleton
     fun provideAuthUseCases(repository: AuthRepository): AuthUseCases {
         return AuthUseCases(
-            loginAuth = LoginAuth(repository)
+            loginAuth = LoginAuth(repository),
+            validateToken = ValidateToken(repository)
         )
     }
 

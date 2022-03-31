@@ -14,4 +14,16 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun registerUser(user: RegisterRequest): Flow<Resource<RegisterResponse>> {
         return api.setRegister(user)
     }
+
+    override suspend fun updateUser() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteUser() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getUserById() {
+        TODO("Not yet implemented")
+    }
 }
