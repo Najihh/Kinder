@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.davahamka.kinder.R
 import com.davahamka.kinder.presentation.ui.theme.Orange1
@@ -39,7 +40,7 @@ fun DonateOrReceiveButton(onClickDonate: ()->Unit, onClickReceive: ()->Unit) {
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Image(painter = painterResource(id = R.drawable.vector), contentDescription = null, modifier = Modifier.size(32.dp))
-                    Text(text = "Share Food", color = White1)
+                    Text(text = "Share Food", color = White1, fontWeight = FontWeight.Bold)
                 }
             }
             Spacer(modifier = Modifier.width(8.dp))
@@ -56,7 +57,7 @@ fun DonateOrReceiveButton(onClickDonate: ()->Unit, onClickReceive: ()->Unit) {
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Image(painter = painterResource(id = R.drawable.ic_find_donate), contentDescription = null, modifier = Modifier.size(32.dp))
-                    Text(text = "Find Food", color = White1)
+                    Text(text = "Find Food", color = White1, fontWeight = FontWeight.Bold)
                 }
             }
         }

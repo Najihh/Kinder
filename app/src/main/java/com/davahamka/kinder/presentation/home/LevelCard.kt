@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -17,16 +18,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.davahamka.kinder.R
+import com.davahamka.kinder.common.Screen
 import com.davahamka.kinder.presentation.ui.theme.PrimaryColor
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun LevelCard() {
+fun LevelCard(navController: NavController) {
     Box(modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)) {
         Card(
             backgroundColor = Color.White,
             elevation = 3.dp,
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(12.dp),
+            onClick = {
+                navController.navigate(Screen.LevelScreen.route)
+            }
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp, horizontal = 12.dp),

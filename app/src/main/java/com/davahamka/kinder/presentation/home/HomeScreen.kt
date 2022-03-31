@@ -148,12 +148,10 @@ fun HomeScreen(navController: NavController) {
                             coroutineScope.launch { modalBottomSheetState.show() }
                         },
                         onClickReceive = {
-                            coroutineScope.launch {
-                                coroutineScope.launch { modalBottomSheetState.show() }
-                            }
+                           navController.navigate(Screen.DonateMapScreen.route)
                         }
                     )
-                    LevelCard()
+                    LevelCard(navController = navController)
                     Column(
                         modifier = Modifier.padding(top = 14.dp, start = 16.dp, end = 16.dp)
                     ) {

@@ -1,10 +1,13 @@
 package com.davahamka.kinder.presentation
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.os.AsyncTask
 import android.provider.Settings
 import android.util.Log
+import android.util.Size
 import androidx.camera.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,18 +26,27 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.override
+import androidx.core.content.ContextCompat
+import com.davahamka.kinder.ml.ObjectDetectorImageAnalyzer
 import com.davahamka.kinder.presentation.ui.component.TopBarDescription
 import com.davahamka.kinder.presentation.ui.theme.Green3
 import com.davahamka.kinder.presentation.ui.theme.PrimaryColor
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.objects.ObjectDetection
+import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions
+import com.google.mlkit.vision.objects.defaults.PredefinedCategory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
+@SuppressLint("UnsafeOptInUsageError")
 @Composable
 fun CameraCapture(
     modifier: Modifier = Modifier,
@@ -42,6 +54,9 @@ fun CameraCapture(
     onImageFile: (File) -> Unit = { }
 ) {
     val context = LocalContext.current
+
+    val cameraExecutor = remember { Executors.newSingleThreadExecutor() }
+
     Permission(
         permission = Manifest.permission.CAMERA,
         rationale = "You said you wanted a picture, so I'm going to have to ask for permission.",
@@ -121,12 +136,62 @@ fun CameraCapture(
                     }
                 }
                 LaunchedEffect(previewUseCase) {
+
+                    val options = ObjectDetectorOptions.Builder()
+                        .setDetectorMode(ObjectDetectorOptions.STREAM_MODE)
+                        .enableClassification()
+                        .build()
+
+                    val objectDetector = ObjectDetection.getClient(options)
+
+
+
+                    val imageAnalysis = ImageAnalysis.Builder()
+                        .setTargetResolution(Size(1280, 70))
+                        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                        .build()
+
+
+
+                    imageAnalysis.setAnalyzer(cameraExecutor, ImageAnalysis.Analyzer {
+                        val mediaImage = it.image
+                        if (mediaImage != null) {
+
+                            val image = InputImage.fromMediaImage(mediaImage, it.imageInfo.rotationDegrees)
+
+                            objectDetector.process(image)
+                                .addOnSuccessListener { detectedObjects ->
+                                    Log.d("DO", detectedObjects.toString())
+                                    for (detectedObject in detectedObjects) {
+                                        val boundingBox = detectedObject.boundingBox
+                                        val trackingId = detectedObject.trackingId
+
+                                        for (label in detectedObject.labels) {
+                                            val text = label.text
+                                            if (PredefinedCategory.FOOD == text) {
+
+                                            }
+                                            val index = label.index
+                                            if (PredefinedCategory.FOOD_INDEX == index) {
+
+                                            }
+                                            val confidence = label.confidence
+                                            Log.d("ML_RESULT", text)
+                                            Log.d("ML_CONFIDENCE", confidence.toString())
+                                        }
+                                    }
+                                }.addOnFailureListener { e ->
+                                    Log.d("MLERR", e.message.toString())
+                                }
+                        }
+                    })
+
                     val cameraProvider = context.getCameraProvider()
                     try {
                         // Must unbind the use-cases before rebinding them.
                         cameraProvider.unbindAll()
                         cameraProvider.bindToLifecycle(
-                            lifecycleOwner, cameraSelector, previewUseCase, imageCaptureUseCase
+                            lifecycleOwner, cameraSelector, imageAnalysis, previewUseCase, imageCaptureUseCase,
                         )
                     } catch (ex: Exception) {
                         Log.e("CameraCapture", "Failed to bind camera use cases", ex)

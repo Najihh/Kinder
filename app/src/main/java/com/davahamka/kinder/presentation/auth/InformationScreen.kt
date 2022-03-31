@@ -96,17 +96,18 @@ fun InformationScreen(navController: NavController?) {
 
             Spacer(modifier = Modifier.height(14.dp))
             AuthenticationButton(
-                text = "Masuk" ,
-
+                text = "Login",
                 onClick = {
                           navController?.navigate(Screen.LoginScreen.route)
                 },
                 )
             Row(
                 modifier = Modifier.padding(top = 32.dp).fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(text = "Don't have an account yet? Please")
+                Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = "Register",
                     style = TextStyle(PrimaryColor, fontWeight = FontWeight.SemiBold),

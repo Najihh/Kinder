@@ -60,6 +60,7 @@ class LoginViewModel @Inject constructor(
 //                    }
 
                 }
+                event.cb()
             }
         }
     }
