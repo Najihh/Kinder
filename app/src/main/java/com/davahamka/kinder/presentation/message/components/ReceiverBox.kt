@@ -20,7 +20,7 @@ fun ReceiverBox(text: String) {
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Gambar")
+            Text(text = "Gambar", modifier = Modifier.fillMaxWidth(0.15f))
             Spacer(modifier = Modifier.width(6.dp))
             Column(
                 modifier = Modifier
@@ -32,10 +32,12 @@ fun ReceiverBox(text: String) {
                             bottomEnd = 12.dp
                         )
                     )
+                    .fillMaxWidth(0.9f)
                     .padding(horizontal = 14.dp, vertical = 8.dp)
             ) {
                 Text(text = text, color = Color(0xFF455B79))
             }
+            Spacer(modifier = Modifier.fillMaxWidth(0.9f))
         }
     }
 }

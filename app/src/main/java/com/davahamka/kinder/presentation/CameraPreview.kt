@@ -24,9 +24,6 @@ fun CameraPreview(
     cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA,
     onUseCase: (UseCase) -> Unit = { }
 ) {
-
-
-
     AndroidView(
         modifier = modifier,
         factory = { context ->
@@ -37,7 +34,6 @@ fun CameraPreview(
                     ViewGroup.LayoutParams.MATCH_PARENT
                 )
             }
-
 
 
             onUseCase(Preview.Builder()

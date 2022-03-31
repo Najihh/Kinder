@@ -14,12 +14,6 @@ import com.davahamka.kinder.static.DonaturDataStatic
 fun DonaturList() {
     LazyColumn() {
         item {
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .padding(24.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                Text(text = "Level", color = Color(0xFF888484), fontWeight = FontWeight.Bold)
-                Text(text = "Point", color = Color(0xFF888484), fontWeight = FontWeight.Bold)
-            }
             DonaturDataStatic.dataCard.forEach {
                 DonaturItem(it)
             }
