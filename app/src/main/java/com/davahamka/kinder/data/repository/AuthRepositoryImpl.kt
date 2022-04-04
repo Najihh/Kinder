@@ -18,7 +18,6 @@ class AuthRepositoryImpl @Inject constructor(
     private val api: KinderApi
 ): AuthRepository {
     override suspend fun setLogin(data: LoginRequest): LoginResponse {
-        Log.d("REPO",data.toString())
         return api.setLogin(data)
     }
 //

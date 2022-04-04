@@ -13,7 +13,8 @@ import kotlinx.coroutines.flow.flow
 class LoginAuth(
     private val repository: AuthRepository
 ) {
-    suspend operator fun invoke(loginRequest: LoginRequest): Flow<DataState<LoginResponse>> = flow {
+    suspend operator fun invoke(loginRequest: LoginRequest): LoginResponse {
+        return repository.setLogin(loginRequest)
 //        emit(DataState.loading())
 //        try {
 //            val response = repository.setLogin(loginRequest)

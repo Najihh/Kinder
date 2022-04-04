@@ -49,15 +49,15 @@ class LoginViewModel @Inject constructor(
                     return
                 }
                 viewModelScope.launch {
-//                    try {
+                    try {
 //                        authUseCases.loginAuth(LoginRequest(email, password)).collectLatest {
 //                            Log.d("ddd", it.message ?: "login success"
 //                            )
 //                        }
-//
-//                    } catch (e: Exception) {
-//                        Log.d("dww", e.message ?: "Error")
-//                    }
+
+                    } catch (e: Exception) {
+                        Log.d("dww", e.message ?: "Error")
+                    }
 
                 }
                 event.cb()

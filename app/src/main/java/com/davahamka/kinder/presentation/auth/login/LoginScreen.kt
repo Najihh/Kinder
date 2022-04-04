@@ -119,7 +119,6 @@ fun LoginScreen(
 
             AuthenticationButton(
                 text = "Login",
-//                onClick = {}
                 onClick = { viewModel.onEvent(LoginEvent.OnSubmitLogin(cb={navController?.navigate(Screen.HomeScreen.withArgs())})) }
             )
 
