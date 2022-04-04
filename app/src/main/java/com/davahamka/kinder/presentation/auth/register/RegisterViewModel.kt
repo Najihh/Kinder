@@ -12,6 +12,7 @@ import com.davahamka.kinder.domain.model.RegisterRequest
 import com.davahamka.kinder.domain.usecase.user.RegisterUser
 import com.davahamka.kinder.domain.usecase.user.UserUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -60,11 +61,24 @@ class RegisterViewModel @Inject constructor(
                 viewModelScope.apply {
                     _state.value = RegisterState(isLoading = true)
                 }
-                if (name.isBlank() || password.isBlank() || email.isBlank() || phoneNumber.isBlank()) {
+                if (name.isNotBlank() || password.isNotBlank() || email.isNotBlank() || phoneNumber.isNotBlank()) {
                     viewModelScope.launch {
                         registerUseCases.registerUser(
                             RegisterRequest(email = email, name = name, no_hp = phoneNumber, password = password)
-                        )
+                        ).collectLatest {
+                            if (it.data!=null){
+                                Log.d("Registrasi id = ", it.data.id)
+                                _state.value = RegisterState(
+                                    successMessage = "Registrasi berhasil",
+                                    isLoading = false
+                                )
+                            }else{
+                                _state.value = RegisterState(
+                                    error = "Registrasi gagal",
+                                    isLoading = false
+                                )
+                            }
+                        }
                     }
 
                 }

@@ -50,6 +50,16 @@ class LoginViewModel @Inject constructor(
                 }
                 viewModelScope.launch {
                     try {
+                        val result = authUseCases.loginAuth(LoginRequest(email, password))
+                        if (!result.token.isNullOrEmpty() && !result.message.isNullOrEmpty()) {
+                            Log.d("token", result.token)
+                            _state.value.successMessage = result.message
+                            _state.value.isLoading = false
+                            event.cb()
+                        }else{
+                            _state.value.isLoading = false
+                            _state.value.error = "login failed"
+                        }
 //                        authUseCases.loginAuth(LoginRequest(email, password)).collectLatest {
 //                            Log.d("ddd", it.message ?: "login success"
 //                            )
@@ -60,7 +70,6 @@ class LoginViewModel @Inject constructor(
                     }
 
                 }
-                event.cb()
             }
         }
     }

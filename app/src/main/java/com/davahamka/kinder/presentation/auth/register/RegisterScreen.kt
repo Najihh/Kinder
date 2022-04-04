@@ -178,7 +178,7 @@ fun RegisterScreen(
 
             AuthenticationButton(
                 text = "Register",
-                onClick = { navController.navigate(Screen.UserPreferredScreen.route) },
+                onClick = { viewModel.onEvent(RegisterEvent.OnSubmitRegister(cb = {navController.navigate(Screen.UserPreferredScreen.route)})) },
                 isLoading = viewModel.state.value.isLoading
             )
 
